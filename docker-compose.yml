@@ -1,0 +1,14 @@
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: myrestaurant-sql
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: "MyRestaurant_Dev_2026!"
+    ports:
+      - "1433:1433"
+    volumes:
+      - myrestaurant-sql:/var/opt/mssql
+
+volumes:
+  myrestaurant-sql:

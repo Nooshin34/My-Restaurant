@@ -1,0 +1,15 @@
+bin/
+obj/
+.vs/
+*.user
+.idea/
+
+web/node_modules/
+web/dist/
+mobile/node_modules/
+mobile/.expo/
+mobile/dist/
+
+*.log
+.DS_Store
+Thumbs.db
