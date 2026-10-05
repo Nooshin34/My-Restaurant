@@ -11,7 +11,7 @@ export function Layout() {
     <div className="shell">
       <header className="topbar">
         <NavLink to="/" className="brand">
-          <span className="mark">ر</span>
+          <img className="mark" src="/favicon.svg" alt="" width={44} height={44} />
           <span>
             <strong>رستوران من</strong>
             <small>MY RESTAURANT</small>

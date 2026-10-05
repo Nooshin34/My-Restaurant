@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { api } from "../api/client.ts";
+import { api, mediaUrl } from "../api/client.ts";
 import type { Category, MenuItem } from "../api/types.ts";
 import { useCart } from "../cart/CartContext.tsx";
 import { formatPrice } from "../lib/format.ts";
@@ -12,6 +12,7 @@ export function MenuPage() {
   const [query, setQuery] = useState("");
   const [error, setError] = useState("");
   const [addedId, setAddedId] = useState("");
+  const [selected, setSelected] = useState<MenuItem | null>(null);
 
   useEffect(() => {
     Promise.all([
@@ -72,19 +73,47 @@ export function MenuPage() {
 
       <div className="grid">
         {visible.map((item) => (
-          <article key={item.id} className="dish">
+          <article key={item.id} className="dish" onClick={() => setSelected(item)}>
+            {item.imageUrl && <img className="dish-photo" src={mediaUrl(item.imageUrl)} alt={item.name} />}
             <span className="kicker">{item.categoryName}</span>
             <h2>{item.name}</h2>
             <p>{item.description}</p>
             <div className="dish-foot">
               <strong>{formatPrice(item.price)}</strong>
-              <button type="button" className="btn" onClick={() => addItem(item)}>
+              <button
+                type="button"
+                className="btn"
+                onClick={(event) => {
+                  event.stopPropagation();
+                  addItem(item);
+                }}
+              >
                 {addedId === item.id ? "اضافه شد" : "افزودن"}
               </button>
             </div>
           </article>
         ))}
       </div>
+
+      {selected && (
+        <div className="modal-back" onClick={() => setSelected(null)}>
+          <article className="modal" onClick={(event) => event.stopPropagation()}>
+            {selected.imageUrl && <img src={mediaUrl(selected.imageUrl)} alt={selected.name} />}
+            <p className="kicker">{selected.categoryName}</p>
+            <h2>{selected.name}</h2>
+            <h3>محتویات</h3>
+            <p>{selected.ingredients || selected.description}</p>
+            <div className="dish-foot">
+              <button type="button" className="btn" onClick={() => addItem(selected)}>
+                افزودن به سبد
+              </button>
+              <button type="button" className="btn btn-ghost" onClick={() => setSelected(null)}>
+                بستن
+              </button>
+            </div>
+          </article>
+        </div>
+      )}
     </section>
   );
 }

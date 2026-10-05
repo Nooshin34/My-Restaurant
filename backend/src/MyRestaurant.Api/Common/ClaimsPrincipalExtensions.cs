@@ -1,5 +1,6 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using MyRestaurant.Business.Common;
 
 namespace MyRestaurant.Api.Common;
 

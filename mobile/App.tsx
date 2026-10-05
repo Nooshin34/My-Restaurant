@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import {
   ActivityIndicator,
+  Image,
+  Modal,
   Pressable,
   ScrollView,
   Text,
@@ -35,6 +37,12 @@ const reservationLabels: Record<string, string> = {
 
 function money(value: number) {
   return `${new Intl.NumberFormat("fa-IR").format(value)} تومان`;
+}
+
+function mediaUrl(path: string | null) {
+  if (!path) return null;
+  if (path.startsWith("http")) return path;
+  return `${getBaseUrl()}${path}`;
 }
 
 export default function App() {
@@ -161,6 +169,7 @@ function MenuScreen({ onAdd }: { onAdd: (item: MenuItem) => void }) {
   const [items, setItems] = useState<MenuItem[]>([]);
   const [categoryId, setCategoryId] = useState("all");
   const [error, setError] = useState("");
+  const [selected, setSelected] = useState<MenuItem | null>(null);
 
   useEffect(() => {
     Promise.all([
@@ -196,7 +205,10 @@ function MenuScreen({ onAdd }: { onAdd: (item: MenuItem) => void }) {
         ))}
       </View>
       {visible.map((item) => (
-        <View key={item.id} style={styles.card}>
+        <Pressable key={item.id} style={styles.card} onPress={() => setSelected(item)}>
+          {mediaUrl(item.imageUrl) ? (
+            <Image source={{ uri: mediaUrl(item.imageUrl) ?? "" }} style={styles.photo} />
+          ) : null}
           <Text style={styles.muted}>{item.categoryName}</Text>
           <Text style={styles.name}>{item.name}</Text>
           <Text style={styles.muted}>{item.description}</Text>
@@ -206,8 +218,23 @@ function MenuScreen({ onAdd }: { onAdd: (item: MenuItem) => void }) {
               <Text style={styles.buttonText}>افزودن</Text>
             </Pressable>
           </View>
-        </View>
+        </Pressable>
       ))}
+      <Modal visible={selected !== null} animationType="slide" transparent onRequestClose={() => setSelected(null)}>
+        <View style={styles.modalBack}>
+          <View style={styles.modalCard}>
+            {selected && mediaUrl(selected.imageUrl) ? (
+              <Image source={{ uri: mediaUrl(selected.imageUrl) ?? "" }} style={styles.modalPhoto} />
+            ) : null}
+            <Text style={styles.name}>{selected?.name}</Text>
+            <Text style={styles.muted}>محتویات</Text>
+            <Text style={styles.muted}>{selected?.ingredients || selected?.description}</Text>
+            <Pressable style={styles.button} onPress={() => setSelected(null)}>
+              <Text style={styles.buttonText}>بستن</Text>
+            </Pressable>
+          </View>
+        </View>
+      </Modal>
     </ScrollView>
   );
 }

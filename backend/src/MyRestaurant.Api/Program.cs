@@ -1,13 +1,14 @@
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using MyRestaurant.Api.Auth;
 using MyRestaurant.Api.Common;
-using MyRestaurant.Api.Data;
-using MyRestaurant.Api.Entities;
 using MyRestaurant.Api.Services;
+using MyRestaurant.Business;
+using MyRestaurant.Business.Abstractions;
+using MyRestaurant.Business.Entities;
+using MyRestaurant.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,15 +19,12 @@ if (string.IsNullOrWhiteSpace(jwt.Key) || Encoding.UTF8.GetByteCount(jwt.Key) < 
     throw new InvalidOperationException("Jwt:Key must be at least 32 bytes.");
 
 builder.Services.Configure<JwtOptions>(builder.Configuration.GetSection(JwtOptions.SectionName));
-builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
+builder.Services.AddData(builder.Configuration.GetConnectionString("Default"));
+builder.Services.AddBusiness();
 
 builder.Services.AddSingleton<IPasswordHasher<User>, PasswordHasher<User>>();
+builder.Services.AddSingleton<IPasswordHasher, PasswordHasherAdapter>();
 builder.Services.AddScoped<JwtTokenService>();
-builder.Services.AddScoped<AuthService>();
-builder.Services.AddScoped<MenuService>();
-builder.Services.AddScoped<OrderService>();
-builder.Services.AddScoped<ReservationService>();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
@@ -60,6 +58,7 @@ var app = builder.Build();
 
 app.UseMiddleware<ExceptionMiddleware>();
 app.UseCors("Clients");
+app.UseStaticFiles();
 
 if (app.Environment.IsDevelopment())
     app.MapOpenApi();
@@ -68,12 +67,6 @@ app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
 
-await using (var scope = app.Services.CreateAsyncScope())
-{
-    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-    await db.Database.MigrateAsync();
-    var hasher = scope.ServiceProvider.GetRequiredService<IPasswordHasher<User>>();
-    await DbSeeder.SeedAsync(db, hasher);
-}
+await app.Services.InitializeDatabaseAsync();
 
 app.Run();

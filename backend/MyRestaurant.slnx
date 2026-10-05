@@ -1,3 +1,7 @@
 <Solution>
+  <Folder Name="/src/">
+    <Project Path="src/MyRestaurant.Business/MyRestaurant.Business.csproj" />
+    <Project Path="src/MyRestaurant.Data/MyRestaurant.Data.csproj" />
+  </Folder>
   <Project Path="src/MyRestaurant.Api/MyRestaurant.Api.csproj" />
 </Solution>

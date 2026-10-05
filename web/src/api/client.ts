@@ -2,9 +2,17 @@ import axios from "axios";
 
 const TOKEN_KEY = "myrestaurant.token";
 
+export const apiBaseUrl = import.meta.env.VITE_API_URL || "http://localhost:5080";
+
 export const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || "http://localhost:5080",
+  baseURL: apiBaseUrl,
 });
+
+export function mediaUrl(path: string | null) {
+  if (!path) return "";
+  if (path.startsWith("http")) return path;
+  return `${apiBaseUrl}${path}`;
+}
 
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem(TOKEN_KEY);

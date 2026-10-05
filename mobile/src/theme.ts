@@ -22,7 +22,22 @@ export const styles = StyleSheet.create({
     padding: 14,
     marginBottom: 12,
     gap: 6,
+    overflow: "hidden",
   },
+  photo: { width: "100%", height: 160, borderRadius: 12, marginBottom: 6 },
+  modalBack: {
+    flex: 1,
+    backgroundColor: "rgba(28,20,16,0.55)",
+    justifyContent: "flex-end",
+  },
+  modalCard: {
+    backgroundColor: colors.card,
+    borderTopLeftRadius: 24,
+    borderTopRightRadius: 24,
+    padding: 18,
+    gap: 8,
+  },
+  modalPhoto: { width: "100%", height: 220, borderRadius: 16 },
   row: { flexDirection: "row-reverse", justifyContent: "space-between", alignItems: "center", gap: 8 },
   name: { fontSize: 18, fontWeight: "700", color: colors.ink, textAlign: "right" },
   input: {

@@ -1,4 +1,32 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" rx="16" fill="#9d2c2c"/>
-  <text x="32" y="42" text-anchor="middle" font-size="32" fill="#fffaf3" font-family="serif">ر</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="نشان اسلیمی رستوران من">
+  <circle cx="32" cy="32" r="32" fill="#9d2c2c"/>
+  <g transform="translate(32 32)" fill="#f6efe4">
+    <path id="leaf" d="M0-12C-2.2-15.2-6.2-17.4-5.6-22.2-5-26.4-1.6-28.2.8-26.4-1.2-25.2-2.4-22-1.2-19.2-.2-23.4 1.8-26 3.6-24.8 6-21.2 6.2-16.4 3.4-14 5.2-15.6 3.8-12.4 1.2-12.1.6-12.1.2-12 0-12Z"/>
+    <use href="#leaf" transform="rotate(45)"/>
+    <use href="#leaf" transform="rotate(90)"/>
+    <use href="#leaf" transform="rotate(135)"/>
+    <use href="#leaf" transform="rotate(180)"/>
+    <use href="#leaf" transform="rotate(225)"/>
+    <use href="#leaf" transform="rotate(270)"/>
+    <use href="#leaf" transform="rotate(315)"/>
+  </g>
+  <g transform="translate(32 32) rotate(22.5)" fill="#e7c98a">
+    <path id="bud" d="M0-10C-2.4-13-2.8-17-.6-20.2.4-17 .4-13.2 0-10 .2-13.2 1-17 2.2-20.2 3.8-16.6 3.2-12.8 0-10Z"/>
+    <use href="#bud" transform="rotate(45)"/>
+    <use href="#bud" transform="rotate(90)"/>
+    <use href="#bud" transform="rotate(135)"/>
+    <use href="#bud" transform="rotate(180)"/>
+    <use href="#bud" transform="rotate(225)"/>
+    <use href="#bud" transform="rotate(270)"/>
+    <use href="#bud" transform="rotate(315)"/>
+  </g>
+  <g transform="translate(32 32)">
+    <rect x="-8.2" y="-8.2" width="16.4" height="16.4" fill="#e7c98a"/>
+    <rect x="-8.2" y="-8.2" width="16.4" height="16.4" fill="#e7c98a" transform="rotate(45)"/>
+    <circle r="4.2" fill="#9d2c2c"/>
+    <circle r="2.15" fill="#f6efe4"/>
+    <circle r="1.05" fill="#1d6844"/>
+  </g>
+  <circle cx="32" cy="32" r="30.15" fill="none" stroke="#e7c98a" stroke-width="1.4"/>
+  <circle cx="32" cy="32" r="27.35" fill="none" stroke="#e7c98a" stroke-width="0.55"/>
 </svg>

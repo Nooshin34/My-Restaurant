@@ -18,6 +18,8 @@ const emptyItem = {
   categoryId: "",
   name: "",
   description: "",
+  ingredients: "",
+  imageUrl: "",
   price: 0,
   isAvailable: true,
 };
@@ -93,7 +95,11 @@ export function AdminPage() {
   const saveItem = async (event: FormEvent) => {
     event.preventDefault();
     setError("");
-    const payload = { ...itemForm, description: itemForm.description, imageUrl: null };
+    const payload = {
+      ...itemForm,
+      imageUrl: itemForm.imageUrl || null,
+      ingredients: itemForm.ingredients,
+    };
     try {
       if (editingItemId) await api.put(`/api/menu-items/${editingItemId}`, payload);
       else await api.post("/api/menu-items", payload);
@@ -111,6 +117,8 @@ export function AdminPage() {
       categoryId: item.categoryId,
       name: item.name,
       description: item.description ?? "",
+      ingredients: item.ingredients ?? "",
+      imageUrl: item.imageUrl ?? "",
       price: item.price,
       isAvailable: item.isAvailable,
     });
@@ -213,6 +221,13 @@ export function AdminPage() {
                 <input
                   value={itemForm.description}
                   onChange={(event) => setItemForm({ ...itemForm, description: event.target.value })}
+                />
+              </Field>
+              <Field label="محتویات">
+                <textarea
+                  rows={3}
+                  value={itemForm.ingredients}
+                  onChange={(event) => setItemForm({ ...itemForm, ingredients: event.target.value })}
                 />
               </Field>
               <Field label="قیمت (تومان)">

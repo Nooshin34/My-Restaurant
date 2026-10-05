@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyRestaurant.Api.Common;
-using MyRestaurant.Api.Dtos;
-using MyRestaurant.Api.Services;
+using MyRestaurant.Business.Dtos;
+using MyRestaurant.Business.Services;
 
 namespace MyRestaurant.Api.Controllers;
 

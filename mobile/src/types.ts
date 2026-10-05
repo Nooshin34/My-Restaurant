@@ -24,6 +24,7 @@ export type MenuItem = {
   categoryName: string;
   name: string;
   description: string | null;
+  ingredients: string | null;
   price: number;
   isAvailable: boolean;
   imageUrl: string | null;

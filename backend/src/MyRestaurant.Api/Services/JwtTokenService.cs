@@ -4,8 +4,9 @@ using System.Text;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using MyRestaurant.Api.Auth;
-using MyRestaurant.Api.Dtos;
-using MyRestaurant.Api.Entities;
+using MyRestaurant.Business.Dtos;
+using MyRestaurant.Business.Entities;
+using MyRestaurant.Business.Services;
 
 namespace MyRestaurant.Api.Services;
 
