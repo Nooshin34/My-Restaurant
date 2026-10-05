@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using MyRestaurant.Business.Entities;
-using BusinessHasher = MyRestaurant.Business.Abstractions.IPasswordHasher;
+using BusinessHasher = MyRestaurant.Business.Interfaces.IPasswordHasher;
 
 namespace MyRestaurant.Api.Auth;
 

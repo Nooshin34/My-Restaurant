@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using MyRestaurant.Business.Abstractions;
+using MyRestaurant.Business.Interfaces;
 using MyRestaurant.Data.Repositories;
 
 namespace MyRestaurant.Data;

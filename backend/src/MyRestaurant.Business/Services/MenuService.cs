@@ -1,4 +1,4 @@
-using MyRestaurant.Business.Abstractions;
+using MyRestaurant.Business.Interfaces;
 using MyRestaurant.Business.Common;
 using MyRestaurant.Business.Dtos;
 using MyRestaurant.Business.Entities;

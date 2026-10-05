@@ -1,6 +1,6 @@
 using MyRestaurant.Business.Entities;
 
-namespace MyRestaurant.Business.Abstractions;
+namespace MyRestaurant.Business.Interfaces;
 
 public interface IUserRepository
 {

@@ -6,7 +6,7 @@ using MyRestaurant.Api.Auth;
 using MyRestaurant.Api.Common;
 using MyRestaurant.Api.Services;
 using MyRestaurant.Business;
-using MyRestaurant.Business.Abstractions;
+using MyRestaurant.Business.Interfaces;
 using MyRestaurant.Business.Entities;
 using MyRestaurant.Data;
 

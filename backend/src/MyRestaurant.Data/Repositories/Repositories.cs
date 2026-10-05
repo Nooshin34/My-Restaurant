@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using MyRestaurant.Business.Abstractions;
+using MyRestaurant.Business.Interfaces;
 using MyRestaurant.Business.Entities;
 
 namespace MyRestaurant.Data.Repositories;
