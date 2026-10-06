@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { api, mediaUrl } from "../api/client.ts";
 import type { Category, MenuItem } from "../api/types.ts";
+import { sampleCategories, sampleItems } from "../data/sampleMenu.ts";
 import { useCart } from "../cart/CartContext.tsx";
 import { formatPrice } from "../lib/format.ts";
 
@@ -10,7 +11,6 @@ export function MenuPage() {
   const [items, setItems] = useState<MenuItem[]>([]);
   const [categoryId, setCategoryId] = useState("all");
   const [query, setQuery] = useState("");
-  const [error, setError] = useState("");
   const [addedId, setAddedId] = useState("");
   const [selected, setSelected] = useState<MenuItem | null>(null);
 
@@ -23,7 +23,10 @@ export function MenuPage() {
         setCategories(categoryResponse.data);
         setItems(itemResponse.data);
       })
-      .catch(() => setError("منو بارگذاری نشد. مطمئن شوید API روی پورت ۵۰۸۰ روشن است."));
+      .catch(() => {
+        setCategories(sampleCategories);
+        setItems(sampleItems);
+      });
   }, []);
 
   const visible = useMemo(() => {
@@ -68,8 +71,7 @@ export function MenuPage() {
         <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="جستجوی غذا" />
       </div>
 
-      {error && <p className="alert">{error}</p>}
-      {!error && items.length === 0 && <p className="muted">در حال چیدن سفره...</p>}
+      {items.length === 0 && <p className="muted">در حال چیدن سفره...</p>}
 
       <div className="grid">
         {visible.map((item) => (

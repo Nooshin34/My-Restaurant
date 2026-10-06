@@ -11,7 +11,8 @@ export const api = axios.create({
 export function mediaUrl(path: string | null) {
   if (!path) return "";
   if (path.startsWith("http")) return path;
-  return `${apiBaseUrl}${path}`;
+  if (path.startsWith("/")) return `${apiBaseUrl}${path}`;
+  return `${import.meta.env.BASE_URL}${path}`;
 }
 
 api.interceptors.request.use((config) => {
