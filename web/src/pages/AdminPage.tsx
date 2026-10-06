@@ -1,4 +1,4 @@
-import { useEffect, useState, type FormEvent } from "react";
+import { useEffect, useState, type FormEvent, type ReactNode } from "react";
 import { api, errorMessage } from "../api/client.ts";
 import type { Category, MenuItem, Order, Reservation } from "../api/types.ts";
 import { useAuth } from "../auth/AuthContext.tsx";
@@ -188,9 +188,11 @@ export function AdminPage() {
                   <strong>{category.name}</strong>
                   <p>{category.description}</p>
                 </div>
-                <button type="button" className="btn btn-ghost" onClick={() => removeCategory(category.id)}>
-                  حذف
-                </button>
+                <div className="icon-actions">
+                  <IconButton label="حذف" danger onClick={() => removeCategory(category.id)}>
+                    <TrashIcon />
+                  </IconButton>
+                </div>
               </article>
             ))}
           </div>
@@ -259,13 +261,13 @@ export function AdminPage() {
                     {item.categoryName} · {formatPrice(item.price)} · {item.isAvailable ? "موجود" : "ناموجود"}
                   </p>
                 </div>
-                <div className="qty">
-                  <button type="button" className="btn btn-ghost" onClick={() => editItem(item)}>
-                    ویرایش
-                  </button>
-                  <button type="button" className="btn btn-ghost" onClick={() => removeItem(item.id)}>
-                    حذف
-                  </button>
+                <div className="icon-actions">
+                  <IconButton label="ویرایش" onClick={() => editItem(item)}>
+                    <EditIcon />
+                  </IconButton>
+                  <IconButton label="حذف" danger onClick={() => removeItem(item.id)}>
+                    <TrashIcon />
+                  </IconButton>
                 </div>
               </article>
             ))}
@@ -316,5 +318,54 @@ export function AdminPage() {
           </article>
         ))}
     </section>
+  );
+}
+
+function IconButton({
+  label,
+  danger,
+  onClick,
+  children,
+}: {
+  label: string;
+  danger?: boolean;
+  onClick: () => void;
+  children: ReactNode;
+}) {
+  return (
+    <button
+      type="button"
+      className={danger ? "icon-btn danger" : "icon-btn"}
+      aria-label={label}
+      data-tooltip={label}
+      onClick={onClick}
+    >
+      {children}
+    </button>
+  );
+}
+
+function EditIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path
+        d="M4 20h4L18.5 9.5a2.12 2.12 0 0 0-3-3L5 17v3z"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinejoin="round"
+      />
+      <path d="M13.5 6.5l3 3" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+function TrashIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M4 7h16" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+      <path d="M9 7V5h6v2" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" />
+      <path d="M7 7l1 13h8l1-13" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" />
+      <path d="M10 11v5M14 11v5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+    </svg>
   );
 }
